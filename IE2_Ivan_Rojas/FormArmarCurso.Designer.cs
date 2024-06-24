@@ -36,6 +36,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnAsignar = new System.Windows.Forms.Button();
             this.btnGrabar = new System.Windows.Forms.Button();
+            this.lstInscriptos = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // cmbCurso
@@ -107,11 +108,20 @@
             this.btnGrabar.UseVisualStyleBackColor = true;
             this.btnGrabar.Click += new System.EventHandler(this.btnGrabar_Click);
             // 
+            // lstInscriptos
+            // 
+            this.lstInscriptos.FormattingEnabled = true;
+            this.lstInscriptos.Location = new System.Drawing.Point(117, 202);
+            this.lstInscriptos.Name = "lstInscriptos";
+            this.lstInscriptos.Size = new System.Drawing.Size(351, 173);
+            this.lstInscriptos.TabIndex = 8;
+            // 
             // FormArmarCurso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lstInscriptos);
             this.Controls.Add(this.btnGrabar);
             this.Controls.Add(this.btnAsignar);
             this.Controls.Add(this.label3);
@@ -138,5 +148,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAsignar;
         private System.Windows.Forms.Button btnGrabar;
+        private System.Windows.Forms.ListBox lstInscriptos;
     }
 }

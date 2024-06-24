@@ -63,6 +63,12 @@
     <Compile Include="FormConsultarCursos.Designer.cs">
       <DependentUpon>FormConsultarCursos.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormListaAsistencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormListaAsistencia.Designer.cs">
+      <DependentUpon>FormListaAsistencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPreinscripcion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormConsultarCursos.resx">
       <DependentUpon>FormConsultarCursos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormListaAsistencia.resx">
+      <DependentUpon>FormListaAsistencia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPreinscripcion.resx">
       <DependentUpon>FormPreinscripcion.cs</DependentUpon>

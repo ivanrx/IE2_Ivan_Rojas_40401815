@@ -12,8 +12,7 @@ using System.IO;
 namespace IE2_Ivan_Rojas
 {
     public partial class FrmAltaCurso : Form
-    {
-        
+    {   
         public FrmAltaCurso()
         {
             InitializeComponent();
@@ -22,7 +21,6 @@ namespace IE2_Ivan_Rojas
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             lstCursos.Items.Add(txtCodigo.Text + "," + txtNombre.Text);
-
         }
 
         private void btnGrabar_Click(object sender, EventArgs e)

@@ -78,5 +78,21 @@ namespace IE2_Ivan_Rojas
             }
             else lstLista.Items.Add("Lista vacia");
         }
+
+        public List<ClsEstudiante> devolverLista()
+        {
+            List<ClsEstudiante> lista = new List<ClsEstudiante>();
+
+            if (inicio != null)
+            {
+                ClsNodo aux = inicio;
+                while (aux != null)
+                {
+                    lista.Add(aux.estudiante);
+                    aux = aux.siguiente;
+                }
+            }
+            return lista;
+        }
     }
 }

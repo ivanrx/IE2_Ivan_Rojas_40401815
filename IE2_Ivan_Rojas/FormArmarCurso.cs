@@ -14,7 +14,8 @@ namespace IE2_Ivan_Rojas
     public partial class FormArmarCurso : Form
     {
         string nombreCurso = "";
-        List<ClsEstudiante> listaEstudiantes = new List<ClsEstudiante>(); 
+        List<ClsEstudiante> listaEstudiantes = new List<ClsEstudiante>();
+        List<ClsCurso> listaCurso = new List<ClsCurso>();
         public FormArmarCurso()
         {
             InitializeComponent();
@@ -22,19 +23,30 @@ namespace IE2_Ivan_Rojas
 
         private void btnAsignar_Click(object sender, EventArgs e)
         {
-            StreamReader leer = File.OpenText("Estudiantes.txt");
-            string registro = leer.ReadLine();
-            cmbCurso.Items.Clear();
-            while (registro != null)
+            if(File.Exists("Estudiantes.txt"))
             {
-                string[] campos = registro.Split(',');
-                ClsEstudiante estudiante = new ClsEstudiante(campos[1], campos[0], int.Parse(campos[2]), campos[3]);
-                listaEstudiantes.Add(estudiante);
-                registro = leer.ReadLine();
+                StreamReader leer = File.OpenText("Estudiantes.txt");
+                string registro = leer.ReadLine();
+                cmbCurso.Items.Clear();
+                while (registro != null && listaCurso.Count < 20)
+                {
+                    string[] campos = registro.Split(',');
+                    ClsEstudiante estudiante = new ClsEstudiante(campos[1], campos[0], int.Parse(campos[2]), campos[3]);
+                    listaEstudiantes.Add(estudiante);
+
+                    registro = leer.ReadLine();
+                }
+                leer.Close();
             }
-            leer.Close();
+            
 
             ClsCurso CursoNuevo = new ClsCurso(cmbCurso.Text, nombreCurso, txtFechaInicio.Text, txtFechaFin.Text, listaEstudiantes);
+            listaCurso.Add(CursoNuevo);
+
+            foreach (ClsCurso curso in listaCurso)
+            {
+                lstInscriptos.Items.Add($"{curso.codigo}, {curso.nombre}, {curso.fecha_inicio}, {curso.fecha_fin}");
+            }
 
             cmbCurso.Text = "";
             txtFechaInicio.Text = "";
@@ -60,9 +72,12 @@ namespace IE2_Ivan_Rojas
         private void btnGrabar_Click(object sender, EventArgs e)
         {
             StreamWriter escribir = new StreamWriter("Inscriptos.txt", false);
-            foreach (var inscripto in listaEstudiantes)
+            foreach (ClsCurso curso in listaCurso)
             {
-                escribir.WriteLine(inscripto);
+                foreach(ClsEstudiante inscripto in listaEstudiantes)
+                {
+                    escribir.WriteLine($"{curso.codigo},{inscripto.DNI}");
+                }
             }
             escribir.Close();
         }

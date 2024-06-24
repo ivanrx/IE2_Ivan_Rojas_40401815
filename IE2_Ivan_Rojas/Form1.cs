@@ -41,5 +41,17 @@ namespace IE2_Ivan_Rojas
             FormArmarCurso f5 = new FormArmarCurso();
             f5.ShowDialog();
         }
+
+        private void btnConsultarCurso_Click(object sender, EventArgs e)
+        {
+            FormConsultarCursos f6 = new FormConsultarCursos();
+            f6.ShowDialog();
+        }
+
+        private void btnAsistencia_Click(object sender, EventArgs e)
+        {
+            FormListaAsistencia f7 = new FormListaAsistencia();
+            f7.ShowDialog();
+        }
     }
 }

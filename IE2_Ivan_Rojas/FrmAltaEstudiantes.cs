@@ -13,6 +13,10 @@ namespace IE2_Ivan_Rojas
 {
     public partial class FrmAltaEstudiantes : Form
     {
+        //List<ClsEstudiante> listaEstudiantes = new List<ClsEstudiante>();
+        ClsLista listaEst = new ClsLista();
+
+        
         public FrmAltaEstudiantes()
         {
             InitializeComponent();
@@ -20,7 +24,18 @@ namespace IE2_Ivan_Rojas
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            lstAlumnos.Items.Add(txtNombre.Text + "," + txtApellido.Text + "," + txtEdad.Text + "," + txtDni.Text); 
+            ClsEstudiante nuevo = new ClsEstudiante(txtApellido.Text, txtNombre.Text, int.Parse(txtEdad.Text), txtDni.Text);
+
+            listaEst.Insertar(nuevo);
+
+            //listaEstudiantes.Add(nuevo);
+
+            //foreach(ClsEstudiante estudiante in listaEstudiantes)
+            //{
+            //    lstAlumnos.Items.Add($"{estudiante.Apellido}, {estudiante.Nombre}, {estudiante.edad}, {estudiante.DNI}");
+            //}
+
+            listaEst.Listar(lstAlumnos);
 
             txtApellido.Text = "";
             txtNombre.Text = "";
@@ -35,10 +50,18 @@ namespace IE2_Ivan_Rojas
 
         private void btnGrabar_Click(object sender, EventArgs e)
         {
+            //StreamWriter escribir = new StreamWriter("Estudiantes.txt", false);
+            //foreach (ClsEstudiante estudiante in listaEstudiantes)
+            //{
+            //    escribir.WriteLine($"{estudiante.Apellido},{estudiante.Nombre},{estudiante.edad},{estudiante.DNI}");
+            //}
+            //escribir.Close();
+
             StreamWriter escribir = new StreamWriter("Estudiantes.txt", false);
-            foreach (var estudiante in lstAlumnos.Items)
+            List<ClsEstudiante> lista = listaEst.devolverLista();
+            foreach(ClsEstudiante alumno in lista)
             {
-                escribir.WriteLine(estudiante);
+                escribir.WriteLine($"{alumno.Nombre},{alumno.Apellido},{alumno.edad},{alumno.DNI}");
             }
             escribir.Close();
         }

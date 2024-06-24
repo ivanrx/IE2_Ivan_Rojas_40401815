@@ -30,9 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnConsultar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.lstCursos = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -51,14 +50,6 @@
             this.txtCodigo.Size = new System.Drawing.Size(100, 20);
             this.txtCodigo.TabIndex = 1;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(119, 125);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 2;
-            // 
             // btnConsultar
             // 
             this.btnConsultar.Location = new System.Drawing.Point(302, 63);
@@ -67,19 +58,27 @@
             this.btnConsultar.TabIndex = 3;
             this.btnConsultar.Text = "Consultar";
             this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            // 
+            // lstCursos
+            // 
+            this.lstCursos.FormattingEnabled = true;
+            this.lstCursos.Location = new System.Drawing.Point(101, 132);
+            this.lstCursos.Name = "lstCursos";
+            this.lstCursos.Size = new System.Drawing.Size(238, 173);
+            this.lstCursos.TabIndex = 4;
             // 
             // FormConsultarCursos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lstCursos);
             this.Controls.Add(this.btnConsultar);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.label1);
             this.Name = "FormConsultarCursos";
             this.Text = "FormConsultarCursos";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -89,7 +88,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtCodigo;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnConsultar;
+        private System.Windows.Forms.ListBox lstCursos;
     }
 }

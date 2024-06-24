@@ -130,6 +130,7 @@
             this.btnConsultarCurso.TabIndex = 5;
             this.btnConsultarCurso.Text = "Consultar Curso";
             this.btnConsultarCurso.UseVisualStyleBackColor = true;
+            this.btnConsultarCurso.Click += new System.EventHandler(this.btnConsultarCurso_Click);
             // 
             // btnAsistencia
             // 
@@ -139,6 +140,7 @@
             this.btnAsistencia.TabIndex = 6;
             this.btnAsistencia.Text = "Generar Lista";
             this.btnAsistencia.UseVisualStyleBackColor = true;
+            this.btnAsistencia.Click += new System.EventHandler(this.btnAsistencia_Click);
             // 
             // Form1
             // 

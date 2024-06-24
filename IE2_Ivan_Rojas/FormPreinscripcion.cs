@@ -27,24 +27,27 @@ namespace IE2_Ivan_Rojas
             string Apellido = "";
             int edad = 0;
 
-            StreamReader leer = File.OpenText("Estudiantes.txt");
-            string registro = leer.ReadLine();
-            cmbCursos.Items.Clear();
-            while (registro != null)
+            if(File.Exists("Estudiantes.txt"))
             {
-                string[] campos = registro.Split(',');
-                
-                if(DNI == campos[3])
+                StreamReader leer = File.OpenText("Estudiantes.txt");
+                string registro = leer.ReadLine();
+                cmbCursos.Items.Clear();
+                while (registro != null)
                 {
-                    Nombre = campos[1];
-                    Apellido = campos[0];
-                    edad = int.Parse(campos[2]);
-                }
-                
-                registro = leer.ReadLine();
-            }
-            leer.Close();
+                    string[] campos = registro.Split(',');
 
+                    if (DNI == campos[3])
+                    {
+                        Nombre = campos[1];
+                        Apellido = campos[0];
+                        edad = int.Parse(campos[2]);
+                    }
+
+                    registro = leer.ReadLine();
+                }
+                leer.Close();
+            }
+            
             ClsEstudiante estudiante = new ClsEstudiante(Apellido, Nombre, edad, DNI);
 
             colaPreinscriptos.Insertar(estudiante);
@@ -56,17 +59,21 @@ namespace IE2_Ivan_Rojas
 
         private void FormPreinscripcion_Load(object sender, EventArgs e)
         {
-            StreamReader leer = File.OpenText("Cursos.txt");
-            string registro = leer.ReadLine();
-            cmbCursos.Items.Clear();
-            while(registro != null)
-            {
-                string[] campos = registro.Split(',');
-                string Codcurso = campos[0];
-                cmbCursos.Items.Add(Codcurso);
-                registro = leer.ReadLine();
+            if(File.Exists("Cursos.txt"))
+                { 
+                StreamReader leer = File.OpenText("Cursos.txt");
+                string registro = leer.ReadLine();
+                cmbCursos.Items.Clear();
+                while (registro != null)
+                {
+                    string[] campos = registro.Split(',');
+                    string Codcurso = campos[0];
+                    cmbCursos.Items.Add(Codcurso);
+                    registro = leer.ReadLine();
+                }
+                leer.Close();
             }
-            leer.Close();
+            
         }
 
         private void btnGrabar_Click(object sender, EventArgs e)
@@ -78,5 +85,7 @@ namespace IE2_Ivan_Rojas
             }
             escribir.Close();
         }
+
+
     }
 }
