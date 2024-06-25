@@ -14,6 +14,7 @@ namespace IE2_Ivan_Rojas
     public partial class FormArmarCurso : Form
     {
         string nombreCurso = "";
+        string codigoCurso = "";
         List<ClsEstudiante> listaEstudiantes = new List<ClsEstudiante>();
         List<ClsCurso> listaCurso = new List<ClsCurso>();
         public FormArmarCurso()
@@ -23,22 +24,41 @@ namespace IE2_Ivan_Rojas
 
         private void btnAsignar_Click(object sender, EventArgs e)
         {
-            if(File.Exists("Estudiantes.txt"))
-            {
-                StreamReader leer = File.OpenText("Estudiantes.txt");
-                string registro = leer.ReadLine();
-                cmbCurso.Items.Clear();
-                while (registro != null && listaCurso.Count < 20)
-                {
-                    string[] campos = registro.Split(',');
-                    ClsEstudiante estudiante = new ClsEstudiante(campos[1], campos[0], int.Parse(campos[2]), campos[3]);
-                    listaEstudiantes.Add(estudiante);
+            List<string> sinpreinscribir = new List<string>();
 
-                    registro = leer.ReadLine();
+            if(File.Exists("ColaEspera.txt"))
+            {
+                StreamReader leerCola = File.OpenText("ColaEspera.txt");
+                string registroCola = leerCola.ReadLine();
+                int estudiantesInscriptos = 0;
+                while (registroCola != null || estudiantesInscriptos < 20)
+                {
+                    string[] campos = registroCola.Split(',');
+                    
+                    if(campos[0] == cmbCurso.Text)
+                    {
+                        ClsEstudiante nuevo = new ClsEstudiante(campos[3], campos[2], int.Parse(campos[1]), campos[4]);
+                        listaEstudiantes.Add(nuevo);
+                        estudiantesInscriptos++;
+                    }
+                    else
+                    {
+                        sinpreinscribir.Add(registroCola);
+                    }
+                    
+                   
+                    registroCola = leerCola.ReadLine();
                 }
-                leer.Close();
+                leerCola.Close();
             }
-            
+
+            StreamWriter escribir = new StreamWriter("ColaEspera.txt", false);
+            foreach (string linea in sinpreinscribir)
+            {
+                escribir.WriteLine(linea);
+            }
+            escribir.Close();
+
 
             ClsCurso CursoNuevo = new ClsCurso(cmbCurso.Text, nombreCurso, txtFechaInicio.Text, txtFechaFin.Text, listaEstudiantes);
             listaCurso.Add(CursoNuevo);
@@ -47,6 +67,36 @@ namespace IE2_Ivan_Rojas
             {
                 lstInscriptos.Items.Add($"{curso.codigo}, {curso.nombre}, {curso.fecha_inicio}, {curso.fecha_fin}");
             }
+
+            codigoCurso = cmbCurso.Text;
+
+            List<string> lineas = new List<string>();
+
+            StreamReader leer = File.OpenText("Cursos.txt");
+            string registro = leer.ReadLine();
+            
+            while (registro != null)
+            {
+                string[] campos = registro.Split(',');
+                if (codigoCurso == campos[0])
+                {
+                    lineas.Add($"{codigoCurso},{campos[1]},{txtFechaInicio.Text},{txtFechaFin.Text}");
+                }
+                else
+                {
+                    lineas.Add(registro);
+                }
+                registro = leer.ReadLine();
+            }
+            leer.Close();
+
+            StreamWriter escribirCursos = new StreamWriter("Cursos.txt", false);
+            foreach(string linea in lineas)
+            {
+                escribirCursos.WriteLine(linea);
+            }
+            escribirCursos.Close();
+
 
             cmbCurso.Text = "";
             txtFechaInicio.Text = "";
@@ -72,14 +122,13 @@ namespace IE2_Ivan_Rojas
         private void btnGrabar_Click(object sender, EventArgs e)
         {
             StreamWriter escribir = new StreamWriter("Inscriptos.txt", false);
-            foreach (ClsCurso curso in listaCurso)
-            {
                 foreach(ClsEstudiante inscripto in listaEstudiantes)
                 {
-                    escribir.WriteLine($"{curso.codigo},{inscripto.DNI}");
+                    escribir.WriteLine($"{codigoCurso},{inscripto.DNI}");
                 }
-            }
             escribir.Close();
+
+           
         }
     }
 }
